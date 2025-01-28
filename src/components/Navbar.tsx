@@ -44,10 +44,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        <button className={styles.authButton}>
-          Sign In with Google
-        </button>
-
         {selectedSong && (
           <div className={styles.playerWrapper}>
             <ReactPlayer
