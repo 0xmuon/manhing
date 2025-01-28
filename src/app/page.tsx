@@ -1,60 +1,77 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import styles from './page.module.css';
-
-interface Manga {
-  _id: string;
-  title: string;
-  coverImage: string;
-  description: string;
-}
+import { Manga } from '@/types/manga';
+import { getMangaList } from '@/services/mangaService';
+import { 
+  Grid, 
+  Card, 
+  CardContent, 
+  CardMedia, 
+  Typography, 
+  Container,
+  Box,
+  CircularProgress
+} from '@mui/material';
 
 export default function Home() {
   const [mangas, setMangas] = useState<Manga[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMangas = async () => {
       try {
-        setLoading(true);
-        const response = await fetch('/api/manga');
-        if (!response.ok) {
-          throw new Error('Failed to fetch mangas');
-        }
-        const data = await response.json();
-        setMangas(Array.isArray(data) ? data : []);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Something went wrong');
-        console.error('Error fetching mangas:', err);
+        const response = await getMangaList();
+        setMangas(response.data);
+      } catch (error) {
+        console.error('Error:', error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchMangas();
   }, []);
 
-  if (loading) return <div className={styles.message}>Loading...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
-    <main className={styles.main}>
-      <h1>Manhning</h1>
-      <div className={styles.grid}>
-        {mangas.length > 0 ? (
-          mangas.map((manga) => (
-            <Link href={`/manga/${manga._id}`} key={manga._id} className={styles.card}>
-              <img src={manga.coverImage} alt={manga.title} />
-              <h2>{manga.title}</h2>
-              <p>{manga.description}</p>
-            </Link>
-          ))
-        ) : (
-          <div className={styles.message}>No manga available</div>
-        )}
-      </div>
-    </main>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Popular Manga
+      </Typography>
+      <Grid container spacing={3}>
+        {mangas.map((manga) => (
+          <Grid item key={manga.mal_id} xs={12} sm={6} md={4} lg={3}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <CardMedia
+                component="img"
+                height="300"
+                image={manga.images.jpg.image_url}
+                alt={manga.title}
+                sx={{ objectFit: 'cover' }}
+              />
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography gutterBottom variant="h6" component="h2" noWrap>
+                  {manga.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Chapters: {manga.chapters || 'Ongoing'}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Score: {manga.score || 'N/A'}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 } 
