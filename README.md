@@ -10,7 +10,6 @@ A modern web application for reading manga and manhwa with background music func
 - 🎵 Background music player with playlist
 - 🎨 Clean, modern UI design
 - 📱 Responsive layout for all devices
-- 🔒 Google Sign-in integration
 - 🎯 Quick access to popular and latest titles
 
 ## Tech Stack
@@ -39,13 +38,9 @@ cd manhning
 npm install
 ```
 
-3. Set up environment variables in `.env.local`:
+3. Set up environment variables by creating a `.env.local` file:
 ```env
-MONGODB_URI=your_mongodb_connection_string
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your_secret_key
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
+MONGODB_URI=your_mongodb_uri_here
 ```
 
 4. Run the development server:
