@@ -4,13 +4,10 @@ export interface Manga {
   images: {
     jpg: {
       image_url: string;
-      large_image_url: string;
     }
   };
-  synopsis: string;
-  chapters: number;
-  score: number;
-  status: string;
+  chapters?: number;
+  score?: number;
 }
 
 export interface MangaResponse {

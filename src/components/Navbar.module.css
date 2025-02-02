@@ -3,16 +3,41 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #1a1a1a;
-  color: white;
+  background-color: rgba(10, 10, 15, 0.25);
+  color: var(--text-primary);
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 
+    0 5px 20px rgba(0, 163, 255, 0.1),
+    0 15px 50px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 163, 255, 0.15);
+  backdrop-filter: blur(20px);
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
+  background: linear-gradient(45deg, #00A3FF, #0B1F6B);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #FFFFFF;
+  text-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.5),
+    2px 2px 2px rgba(0, 0, 0, 0.5);
+  position: relative;
+  transform: translateZ(20px);
+  transition: transform 0.3s ease;
+  margin-right: auto;
+}
+
+.logo:hover {
+  transform: translateZ(30px) scale(1.05);
+  text-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.7),
+    2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .controls {
@@ -25,30 +50,177 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  background: rgba(0, 163, 255, 0.05);
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 163, 255, 0.15);
+  box-shadow: 
+    0 4px 15px rgba(0, 163, 255, 0.05),
+    0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateZ(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.musicControls:hover {
+  transform: translateZ(20px);
+  box-shadow: 
+    0 8px 25px rgba(0, 163, 255, 0.2),
+    0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid rgba(0, 163, 255, 0.3);
+  min-width: 250px;
+  transition: all 0.3s ease;
+  transform: translateZ(5px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #00A3FF;
+  box-shadow: 
+    0 0 15px rgba(0, 163, 255, 0.3),
+    inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  transform: translateZ(10px);
 }
 
 .songSelect {
-  padding: 0.5rem;
-  border-radius: 4px;
-  background-color: #333;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
   color: white;
-  border: 1px solid #444;
+  border: 1px solid rgba(0, 163, 255, 0.3);
+  min-width: 300px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translateZ(5px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.songSelect:focus {
+  outline: none;
+  border-color: #00A3FF;
+  box-shadow: 
+    0 0 15px rgba(0, 163, 255, 0.3),
+    inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  transform: translateZ(10px);
 }
 
 .playButton {
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1.2rem;
   border: none;
-  border-radius: 4px;
-  background-color: #333;
+  border-radius: 6px;
+  background: var(--primary-gradient);
   color: white;
   cursor: pointer;
   font-size: 1.2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(15px);
+  box-shadow: 
+    0 4px 15px rgba(0, 163, 255, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-.playButton:hover {
-  background-color: #444;
+.playButton::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: scale(0.5);
+}
+
+.playButton:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.playButton:hover:not(:disabled) {
+  transform: translateZ(25px) scale(1.05);
+  box-shadow: 
+    0 8px 25px rgba(0, 163, 255, 0.3),
+    0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.loginButton, .logoutButton {
+  padding: 0.8rem 1.5rem;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(15px);
+  box-shadow: 
+    0 4px 15px rgba(0, 163, 255, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.loginButton {
+  background: var(--primary-gradient);
+}
+
+.logoutButton {
+  background: linear-gradient(45deg, #0B1F6B, #0B0B2E);
+}
+
+.loginButton:hover, .logoutButton:hover {
+  transform: translateZ(25px) scale(1.05);
+  box-shadow: 
+    0 8px 25px rgba(0, 163, 255, 0.3),
+    0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 163, 255, 0.1);
+  border-top: 2px solid #00A3FF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  right: 10px;
+  transform: translateZ(20px);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes spin {
+  0% { transform: translateZ(20px) rotate(0deg); }
+  100% { transform: translateZ(20px) rotate(360deg); }
 }
 
 .playerWrapper {
   display: none;
+}
+
+.error {
+  color: #ff4444;
+  font-size: 0.875rem;
+  margin-left: 1rem;
+  text-shadow: 
+    0 0 10px rgba(255, 68, 68, 0.3),
+    2px 2px 4px rgba(0, 0, 0, 0.5);
+  transform: translateZ(10px);
 } 

@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 import './globals.css';
 
 export const metadata = {
-  title: 'Manhning',
+  title: 'Manhing',
   description: 'Read your favorite manga and manhwa online',
 }
 

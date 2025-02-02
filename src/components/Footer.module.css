@@ -3,6 +3,12 @@
   color: #fff;
   padding: 3rem 0 1rem 0;
   margin-top: 4rem;
+  border-top: 2px solid #333;
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(157, 0, 255, 0.05)
+  );
 }
 
 .content {
@@ -19,6 +25,10 @@
   font-size: 1.2rem;
   margin-bottom: 1rem;
   font-weight: 600;
+  background: linear-gradient(45deg, #9d00ff, #ff0080);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .section ul {
@@ -27,21 +37,37 @@
 }
 
 .section ul li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .section ul li a {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.section ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(45deg, #9d00ff, #ff0080);
+  transition: width 0.3s ease;
 }
 
 .section ul li a:hover {
   color: #fff;
 }
 
+.section ul li a:hover::after {
+  width: 100%;
+}
+
 .section p {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
 }
 
@@ -49,11 +75,11 @@
   text-align: center;
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #333;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .bottom p {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.875rem;
 }
 

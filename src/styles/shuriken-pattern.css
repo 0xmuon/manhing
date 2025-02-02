@@ -1,0 +1,24 @@
+/* Add this to your public/images folder */
+.shuriken {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.shuriken::before,
+.shuriken::after {
+  content: '✦';
+  position: absolute;
+  color: rgba(255, 0, 102, 0.1);
+  font-size: 20px;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} 

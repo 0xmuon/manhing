@@ -17,14 +17,17 @@ import {
 export default function Home() {
   const [mangas, setMangas] = useState<Manga[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMangas = async () => {
       try {
+        setLoading(true);
         const response = await getMangaList();
-        setMangas(response.data);
+        setMangas(response.data.data);
       } catch (error) {
         console.error('Error:', error);
+        setError('Failed to load manga list');
       } finally {
         setLoading(false);
       }
@@ -35,8 +38,16 @@ export default function Home() {
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="calc(100vh - 200px)">
         <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="calc(100vh - 200px)">
+        <Typography color="error">{error}</Typography>
       </Box>
     );
   }
