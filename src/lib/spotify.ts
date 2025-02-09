@@ -6,7 +6,6 @@ const spotifyApi = new SpotifyWebApi();
 export const initializeSpotify = async (token: string) => {
   try {
     spotifyApi.setAccessToken(token);
-    // Test the token by making a simple API call
     await spotifyApi.getMe();
     return true;
   } catch (error) {
@@ -35,13 +34,11 @@ export const searchTracks = async (query: string) => {
 
 export const playTrack = async (uri: string) => {
   try {
-    // Get available devices first
     const devices = await spotifyApi.getMyDevices();
     if (!devices.devices.length) {
       throw new Error('No active Spotify devices found');
     }
 
-    // Play on the first active device
     await spotifyApi.play({
       uris: [uri],
       device_id: devices.devices[0].id

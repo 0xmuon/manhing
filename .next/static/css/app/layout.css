@@ -131,6 +131,9 @@ body {
     radial-gradient(circle at 50% 0%, rgba(255, 0, 102, 0.15), transparent 70%),
     radial-gradient(circle at 100% 0%, rgba(107, 15, 26, 0.15), transparent 70%);
   position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -149,6 +152,17 @@ body::before {
   background-size: 100px 100px;
   pointer-events: none;
   z-index: -1;
+  transform: translateZ(-50px);
+  animation: backgroundFloat 20s infinite linear;
+}
+
+@keyframes backgroundFloat {
+  0% {
+    transform: translateZ(-50px) rotate(0deg);
+  }
+  100% {
+    transform: translateZ(-50px) rotate(360deg);
+  }
 }
 
 main {
